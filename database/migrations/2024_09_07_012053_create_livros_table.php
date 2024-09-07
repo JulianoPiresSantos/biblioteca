@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('Titulo', 40);
             $table->string('Editora', 40);
             $table->integer('Edicao');
-            $table->year('AnoPublicacao');
+            $table->string('AnoPublicacao', 4);
             $table->decimal('Valor', 8, 2);
             $table->timestamps();
         });
