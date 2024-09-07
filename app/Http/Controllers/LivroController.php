@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
-use Illuminate\Http\Request;
+use App\Models\Autor;
+use App\Models\Assunto;
 
 class LivroController extends Controller
 {
@@ -16,7 +17,10 @@ class LivroController extends Controller
 
     public function create()
     {
-        return view('livros.create');
+        $autores = Autor::all();
+        $assuntos = Assunto::all();
+        //dd( compact('autores', 'assuntos'));
+        return view('livros.create', compact('autores', 'assuntos'));
     }
 
     public function store(LivroRequest $request)
@@ -30,7 +34,10 @@ class LivroController extends Controller
 
     public function edit(Livro $livro)
     {
-        return view('livros.edit', compact('livro'));
+        $autores = Autor::all();
+        $assuntos = Assunto::all();
+
+        return view('livros.edit', compact('livro', 'autores', 'assuntos'));
     }
 
     public function update(LivroRequest $request, Livro $livro)
@@ -38,7 +45,14 @@ class LivroController extends Controller
         $livro->update($request->all());
         $livro->autores()->sync($request->input('autores', []));
         $livro->assuntos()->sync($request->input('assuntos', []));
-        return redirect()->route('livros.index')->with('success', 'Livro adicionado com sucesso!');
+        return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!');
+    }
+
+    public function show(Livro $livro)
+    {
+        $livro->load('autores', 'assuntos');
+
+        return view('livros.show', compact('livro'));
     }
 
     public function destroy(Livro $livro)

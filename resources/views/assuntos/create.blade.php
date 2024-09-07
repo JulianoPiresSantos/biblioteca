@@ -18,10 +18,11 @@
         @csrf
         <div class="form-group mb-3">
             <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" class="form-control">
+            <input type="text" name="Descricao" id="descricao" class="form-control">
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
         <a href="{{ route('assuntos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection
+

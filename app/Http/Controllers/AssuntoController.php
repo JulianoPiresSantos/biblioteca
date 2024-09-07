@@ -33,7 +33,14 @@ class AssuntoController extends Controller
     public function update(AssuntoRequest $request, Assunto $assunto)
     {
         $assunto->update($request->all());
-        return redirect()->route('assuntos.index')->with('success', 'Assunto adicionado com sucesso!');
+        return redirect()->route('assuntos.index')->with('success', 'Assunto atualizado com sucesso!');
+    }
+
+    public function show(Assunto $assunto)
+    {
+        $assunto->load('livros');
+
+        return view('assuntos.show', compact('assunto'));
     }
 
     public function destroy(Assunto $assunto)

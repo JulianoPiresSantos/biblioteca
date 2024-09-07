@@ -26,7 +26,12 @@ class LivroRequest extends FormRequest
             'Titulo' => 'required|min:1|max:40',
             'Editora' => 'required|min:1|max:40',
             'Edicao' => 'required',
-            'AnoPublicacao' => 'required'
+            'AnoPublicacao' => 'required',
+            'Valor' => 'required',
+            'autores' => 'required|array|min:1',
+            'autores.*' => 'exists:Autor,CodAu',
+            'assuntos' => 'required|array|min:1',
+            'assuntos.*' => 'exists:Assunto,codAs'
         ];
     }
 
@@ -36,7 +41,10 @@ class LivroRequest extends FormRequest
             'Titulo' => 'Titulo',
             'Editora' => 'Editora',
             'Edicao' => 'Edicao',
-            'AnoPublicacao' => 'AnoPublicacao'
+            'AnoPublicacao' => 'Ano Publicacao',
+            'Valor' => 'Valor',
+            'autores' => 'Autores',
+            'assuntos' => 'Assuntos'
         ];
     }
 
@@ -51,6 +59,13 @@ class LivroRequest extends FormRequest
             'Editora.max' => 'O campo :attribute deve conter no máximo 40 caracteres',
             'Edicao.required' => 'O campo :attribute é obrigatório',
             'AnoPublicacao.required' => 'O campo :attribute é obrigatório',
+            'Valor.required' => 'O campo :attribute é obrigatório',
+            'autores.required' => 'É necessário selecionar pelo menos um autor',
+            'autores.min' => 'Selecione pelo menos um autor',
+            'autores.*.exists' => 'O autor selecionado não é válido',
+            'assuntos.required' => 'É necessário selecionar pelo menos um assunto',
+            'assuntos.min' => 'Selecione pelo menos um assunto',
+            'assuntos.*.exists' => 'O assunto selecionado não é válido'
         ];
     }
 }

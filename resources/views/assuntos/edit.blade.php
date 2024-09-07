@@ -20,7 +20,7 @@
 
         <div class="form-group mb-3">
             <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" class="form-control" value="{{ $assunto->Descricao }}">
+            <input type="text" name="Descricao" id="descricao" class="form-control" value="{{ $assunto->Descricao }}">
         </div>
 
         <button type="submit" class="btn btn-success">Atualizar</button>

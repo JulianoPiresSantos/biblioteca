@@ -34,7 +34,14 @@ class AutorController extends Controller
     public function update(AutorRequest $request, Autor $autor)
     {
         $autor->update($request->all());
-        return redirect()->route('autores.index')->with('success', 'Autor adicionado com sucesso!');
+        return redirect()->route('autores.index')->with('success', 'Autor atualizado com sucesso!');
+    }
+
+    public function show(Autor $autor)
+    {
+        $autor->load('livros');
+
+        return view('autores.show', compact('autor'));
     }
 
     public function destroy(Autor $autor)
