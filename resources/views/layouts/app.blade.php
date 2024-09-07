@@ -11,7 +11,7 @@
 <body>
 <div class="container mt-5">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <a class="navbar-brand" href="#">Cadastro de Livros</a>
+        <a class="navbar-brand" href="{{ route('welcome') }}">Biblioteca</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">

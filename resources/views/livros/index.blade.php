@@ -12,13 +12,19 @@
             </ul>
         </div>
     @endif
-    <div class="d-flex justify-content-between mb-3">
-        <h1>Lista de Livros</h1>
-        <a href="{{ route('livros.create') }}" class="btn btn-sm btn-primary d-flex align-items-center px-3 py-1">
-            <i class="fas fa-plus mr-2"></i> Adicionar
-        </a>
-    </div>
 
+    <div class="row">
+        <h1>Lista de Livros</h1>
+        <div class="col d-flex justify-content-end">
+            <a href="{{ route('livros.create') }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus mr-2"></i> Adicionar
+            </a>
+            &nbsp;
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-sm btn-info">
+                <i class="fas fa-plus mr-2"></i> Relatório
+            </a>
+        </div>
+    </div>
     @if($livros->isEmpty())
         <p>Não há livros cadastrados.</p>
     @else
