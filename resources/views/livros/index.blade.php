@@ -3,6 +3,15 @@
 @section('title', 'Lista de Livros')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="d-flex justify-content-between mb-3">
         <h1>Lista de Livros</h1>
         <a href="{{ route('livros.create') }}" class="btn btn-sm btn-primary d-flex align-items-center px-3 py-1">
@@ -31,7 +40,7 @@
                     <td>{{ $livro->Titulo }}</td>
                     <td>{{ $livro->Editora }}</td>
                     <td>{{ $livro->AnoPublicacao }}</td>
-                    <td>{{ number_format($livro->valor, 2, ',', '.') }}</td>
+                    <td>{{ number_format($livro->Valor, 2, ',', '.') }}</td>
                     <td>
                         <a href="{{ route('livros.show', $livro->CodL) }}" class="btn btn-sm btn-info">
                             <i class="fas fa-eye"></i> Visualizar

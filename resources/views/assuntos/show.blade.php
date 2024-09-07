@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <p><strong>Livros:</strong></p>
-            @foreach ($assunto->livros as $livro)
+            @forelse ($assunto->livros as $livro)
                 <ul>
                     <li><strong>Título: </strong>{{ $livro->Titulo }}</li>
                     <li><strong>Editora: </strong>{{ $livro->Editora }}</li>
@@ -20,7 +20,9 @@
                     <li><strong>Valor (R$): </strong>{{ number_format($livro->valor, 2, ',', '.') }}</li>
                 </ul>
                 <hr>
-            @endforeach
+            @empty
+                <p>Não há Livros cadastrados para este Assunto</p>
+            @endforelse
         </div>
     </div>
 

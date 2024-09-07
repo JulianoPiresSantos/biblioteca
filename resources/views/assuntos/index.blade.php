@@ -3,6 +3,15 @@
 @section('title', 'Lista de Assuntos')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="d-flex justify-content-between mb-3">
         <h1>Lista de Assuntos</h1>
         <a href="{{ route('assuntos.create') }}"

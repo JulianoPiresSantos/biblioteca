@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('Livro_Autor', function (Blueprint $table) {
-            $table->foreignId('Livro_CodL')->constrained('Livro', 'CodL');
-            $table->foreignId('Autor_CodAu')->constrained('Autor', 'CodAu');
-            $table->primary(['Livro_CodL', 'Autor_CodAu']);
+            $table->foreignId('Livro_CodL')
+                ->constrained('Livro', 'CodL')
+                ->onDelete('cascade');
+            $table->foreignId('Autor_CodAu')
+                ->constrained('Autor', 'CodAu');
+            $table->primary(['Livro_CodL', 'Autor_CodAu'])
+                ->onDelete('cascade');
         });
-
     }
 
     /**

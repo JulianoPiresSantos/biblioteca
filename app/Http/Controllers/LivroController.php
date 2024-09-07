@@ -6,6 +6,9 @@ use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
 use App\Models\Autor;
 use App\Models\Assunto;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LivroController extends Controller
 {
@@ -25,11 +28,40 @@ class LivroController extends Controller
 
     public function store(LivroRequest $request)
     {
-        //dd($request->all());
-        $livro = Livro::create($request->all());
-        $livro->autores()->sync($request->input('autores', []));
-        $livro->assuntos()->sync($request->input('assuntos', []));
-        return redirect()->route('livros.index')->with('success', 'Livro adicionado com sucesso!');
+        try {
+            DB::beginTransaction();
+
+            //throw new \PDOException('Simulação de erro de conexão com o banco de dados.');
+
+            $livro = Livro::create($request->all());
+
+            // Sincroniza autores e assuntos
+            $livro->autores()->sync($request->input('autores', []));
+            $livro->assuntos()->sync($request->input('assuntos', []));
+
+            DB::commit();
+
+            return redirect()->route('livros.index')->with('success', 'Livro adicionado com sucesso!');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Erro ao salvar o livro no banco de dados.']);
+        } catch (\PDOException $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Erro de conexão com o banco de dados.']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao tentar adicionar o livro.']);
+        }
     }
 
     public function edit(Livro $livro)
@@ -42,10 +74,41 @@ class LivroController extends Controller
 
     public function update(LivroRequest $request, Livro $livro)
     {
-        $livro->update($request->all());
-        $livro->autores()->sync($request->input('autores', []));
-        $livro->assuntos()->sync($request->input('assuntos', []));
-        return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!');
+
+
+        try {
+            DB::beginTransaction();
+
+            //throw new \PDOException('Simulação de erro de conexão com o banco de dados.');
+
+            $livro->update($request->all());
+
+            $livro->autores()->sync($request->input('autores', []));
+            $livro->assuntos()->sync($request->input('assuntos', []));
+
+            DB::commit();
+
+            return redirect()->route('livros.index')->with('success', 'Livro atualizado com sucesso!');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Erro ao atualizar o livro no banco de dados.']);
+        } catch (\PDOException $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Erro de conexão com o banco de dados.']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+
+            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao tentar atualizar o livro.']);
+        }
     }
 
     public function show(Livro $livro)
@@ -58,6 +121,6 @@ class LivroController extends Controller
     public function destroy(Livro $livro)
     {
         $livro->delete();
-        return redirect()->route('livros.index');
+        return redirect()->route('livros.index')->with('success', 'Livro excluído com sucesso!');
     }
 }
