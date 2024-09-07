@@ -22,11 +22,11 @@
             <tbody>
             @foreach($assuntos as $assunto)
                 <tr>
-                    <td>{{ $assunto->cod_as }}</td>
-                    <td>{{ $assunto->descricao }}</td>
+                    <td>{{ $assunto->codAs }}</td>
+                    <td>{{ $assunto->Descricao }}</td>
                     <td>
-                        <a href="{{ route('assuntos.edit', $assunto->cod_as) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <form action="{{ route('assuntos.destroy', $assunto->cod_as) }}" method="POST" class="d-inline">
+                        <a href="{{ route('assuntos.edit', $assunto->codAs) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <form action="{{ route('assuntos.destroy', $assunto->codAs) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Excluir</button>

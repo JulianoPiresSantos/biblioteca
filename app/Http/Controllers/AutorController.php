@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AutorRequest;
 use App\Models\Autor;
 use Illuminate\Http\Request;
 
@@ -18,11 +19,11 @@ class AutorController extends Controller
         return view('autores.create');
     }
 
-    public function store(Request $request)
+    public function store(AutorRequest $request)
     {
-        dd($request);
+        //dd($request);
         Autor::create($request->all());
-        return redirect()->route('autores.index');
+        return redirect()->route('autores.index')->with('success', 'Autor adicionado com sucesso!');
     }
 
     public function edit(Autor $autor)
@@ -30,10 +31,10 @@ class AutorController extends Controller
         return view('autores.edit', compact('autor'));
     }
 
-    public function update(Request $request, Autor $autor)
+    public function update(AutorRequest $request, Autor $autor)
     {
         $autor->update($request->all());
-        return redirect()->route('autores.index');
+        return redirect()->route('autores.index')->with('success', 'Autor adicionado com sucesso!');
     }
 
     public function destroy(Autor $autor)

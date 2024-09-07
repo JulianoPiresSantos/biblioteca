@@ -26,6 +26,7 @@
         </div>
     </nav>
 
+    @include('message')
     @yield('content')
 </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
 use Illuminate\Http\Request;
 
@@ -18,13 +19,13 @@ class LivroController extends Controller
         return view('livros.create');
     }
 
-    public function store(Request $request)
+    public function store(LivroRequest $request)
     {
         //dd($request->all());
         $livro = Livro::create($request->all());
         $livro->autores()->sync($request->input('autores', []));
         $livro->assuntos()->sync($request->input('assuntos', []));
-        return redirect()->route('livros.index');
+        return redirect()->route('livros.index')->with('success', 'Livro adicionado com sucesso!');
     }
 
     public function edit(Livro $livro)
@@ -32,12 +33,12 @@ class LivroController extends Controller
         return view('livros.edit', compact('livro'));
     }
 
-    public function update(Request $request, Livro $livro)
+    public function update(LivroRequest $request, Livro $livro)
     {
         $livro->update($request->all());
         $livro->autores()->sync($request->input('autores', []));
         $livro->assuntos()->sync($request->input('assuntos', []));
-        return redirect()->route('livros.index');
+        return redirect()->route('livros.index')->with('success', 'Livro adicionado com sucesso!');
     }
 
     public function destroy(Livro $livro)
