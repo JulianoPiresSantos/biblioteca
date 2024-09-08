@@ -76,11 +76,7 @@ class LivroSeeder extends Seeder
             ['Livro_CodL' => 2, 'Autor_CodAu' => 2],
             ['Livro_CodL' => 3, 'Autor_CodAu' => 3],
             ['Livro_CodL' => 4, 'Autor_CodAu' => 4],
-            ['Livro_CodL' => 5, 'Autor_CodAu' => 5],
-            ['Livro_CodL' => 1, 'Autor_CodAu' => 3],
-            ['Livro_CodL' => 3, 'Autor_CodAu' => 2],
-            ['Livro_CodL' => 3, 'Autor_CodAu' => 1],
-            ['Livro_CodL' => 2, 'Autor_CodAu' => 5],
+            ['Livro_CodL' => 5, 'Autor_CodAu' => 5]
         ]);
 
         // Associando assuntos aos livros
@@ -89,9 +85,7 @@ class LivroSeeder extends Seeder
             ['Livro_CodL' => 2, 'Assunto_codAs' => 2],
             ['Livro_CodL' => 3, 'Assunto_codAs' => 3],
             ['Livro_CodL' => 4, 'Assunto_codAs' => 4],
-            ['Livro_CodL' => 5, 'Assunto_codAs' => 5],
-            ['Livro_CodL' => 5, 'Assunto_codAs' => 1],
-            ['Livro_CodL' => 3, 'Assunto_codAs' => 2],
+            ['Livro_CodL' => 5, 'Assunto_codAs' => 5]
         ]);
     }
 }

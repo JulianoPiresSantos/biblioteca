@@ -11,7 +11,7 @@ git clone https://github.com/JulianoPiresSantos/biblioteca
 
 cd biblioteca
 
-cp .env-example .env
+cp .env.example .env
 
 docker compose up -d --build
 
@@ -21,7 +21,7 @@ acessar o sistema pela seguinte url: http://localhost
 
 Para rodar os testes automatizados execute o comando:
 
-docker compose exec -it biblioteca-laravel.test-1 php artisan test --env=testing
+docker exec -it biblioteca-laravel.test-1 php artisan test --env=testing
 
 ## Conectando com o banco:
 
