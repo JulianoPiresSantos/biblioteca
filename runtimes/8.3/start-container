@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+# Verificação de usuário
 if [ "$SUPERVISOR_PHP_USER" != "root" ] && [ "$SUPERVISOR_PHP_USER" != "sail" ]; then
-    echo "You should set SUPERVISOR_PHP_USER to either 'sail' or 'root'."
+    echo "Você deve definir SUPERVISOR_PHP_USER como 'sail' ou 'root'."
     exit 1
 fi
 
@@ -15,12 +16,39 @@ fi
 
 chmod -R ugo+rw /.composer
 
-if [ $# -gt 0 ]; then
-    if [ "$SUPERVISOR_PHP_USER" = "root" ]; then
-        exec "$@"
-    else
-        exec gosu $WWWUSER "$@"
-    fi
-else
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+# Executar composer install se o diretório vendor não existir
+if [ ! -d /var/www/html/vendor ]; then
+    echo "Instalando dependências com composer..."
+    composer install
 fi
+
+# Gerar o arquivo .env se não existir
+if [ ! -f /var/www/html/.env ]; then
+    echo "Criando arquivo .env ..."
+    cp /var/www/html/.env.example /var/www/html/.env
+fi
+
+# Gerar chave da aplicação
+echo "Gerando chave da aplicação..."
+php artisan key:generate
+
+# Gerar chave da aplicação para o ambiente de teste
+echo "Gerando chave da aplicação para o ambiente de teste..."
+php artisan key:generate --env=testing
+
+# Tocar o arquivo SQLite para os testes
+if [ ! -f /var/www/html/database/database.sqlite ]; then
+    echo "Criando arquivo SQLite para testes..."
+    touch /var/www/html/database/database.sqlite
+fi
+
+# Executar migrations
+echo "Executando migrations..."
+php artisan migrate --force
+
+# Executar seeders
+echo "Executando seeders..."
+php artisan db:seed --force
+
+# Setup completo, iniciar o supervisord
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
