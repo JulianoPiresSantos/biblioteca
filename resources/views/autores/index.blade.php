@@ -12,12 +12,13 @@
             </ul>
         </div>
     @endif
-    <div class="d-flex justify-content-between mb-3">
+    <div class="row">
         <h1>Lista de Autores</h1>
-        <a href="{{ route('autores.create') }}"
-           class="btn btn-sm btn-primary d-flex align-items-center px-3 py-1">
-            <i class="fas fa-plus mr-2"></i> Adicionar
-        </a>
+        <div class="col d-flex justify-content-end">
+            <a href="{{ route('autores.create') }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-plus mr-2"></i> Adicionar
+            </a>
+        </div>
     </div>
 
     @if($autores->isEmpty())
