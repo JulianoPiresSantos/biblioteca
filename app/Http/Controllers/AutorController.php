@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Log;
 
 class AutorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $autores = Autor::all();
+        $autoresBusca = Autor::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $autoresBusca->where('Nome', 'like', '%' . $request->search . '%');
+        }
+
+        $autores = $autoresBusca->paginate(2)->appends($request->all());
+
         return view('autores.index', compact('autores'));
     }
 

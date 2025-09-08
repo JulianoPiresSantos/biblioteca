@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Log;
 
 class AssuntoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $assuntos = Assunto::all();
+        $assuntosBusca = Assunto::query();
+
+        if ($request->has('search') && !empty($request->search)) {
+            $assuntosBusca->where('Descricao', 'like', '%' . $request->search . '%');
+        }
+
+        $assuntos = $assuntosBusca->paginate(2)->appends($request->all());
+
         return view('assuntos.index', compact('assuntos'));
     }
 

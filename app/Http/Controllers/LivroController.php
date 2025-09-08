@@ -7,14 +7,23 @@ use App\Models\Livro;
 use App\Models\Autor;
 use App\Models\Assunto;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class LivroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $livros = Livro::with('autores', 'assuntos')->get();
+        $livrosBusca = Livro::with('autores', 'assuntos');
+
+        if ($request->has('search') && !empty($request->search)) {
+
+            $livrosBusca->where('Titulo', 'like', '%' . $request->search . '%');
+        }
+
+        $livros = $livrosBusca->paginate(2)->appends($request->all());
+
         return view('livros.index', compact('livros'));
     }
 
@@ -22,7 +31,7 @@ class LivroController extends Controller
     {
         $autores = Autor::all();
         $assuntos = Assunto::all();
-        //dd( compact('autores', 'assuntos'));
+
         return view('livros.create', compact('autores', 'assuntos'));
     }
 
