@@ -71,6 +71,7 @@
         </div>
 
         <div class="mt-3 d-flex justify-content-center">
+            @include('components.perpage')
             {{ $livros->links() }}
         </div>
     @endif

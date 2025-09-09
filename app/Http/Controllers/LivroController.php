@@ -21,8 +21,8 @@ class LivroController extends Controller
 
             $livrosBusca->where('Titulo', 'like', '%' . $request->search . '%');
         }
-
-        $livros = $livrosBusca->paginate(2)->appends($request->all());
+        $perPage = $request->input('perPage', 5);
+        $livros = $livrosBusca->paginate($perPage)->appends($request->all());
 
         return view('livros.index', compact('livros'));
     }
@@ -92,7 +92,6 @@ class LivroController extends Controller
 
     public function update(LivroRequest $request, Livro $livro)
     {
-
 
         try {
             DB::beginTransaction();

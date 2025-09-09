@@ -16,7 +16,12 @@ class Assunto extends Model
 
     public function livros()
     {
-        return $this->belongsToMany(Livro::class, 'Livro_Assunto', 'Assunto_codAs', 'Livro_CodL');
+        return $this->belongsToMany(
+            Livro::class,
+            'Livro_Assunto',
+            'Assunto_codAs',
+            'Livro_CodL'
+        );
     }
 }
 

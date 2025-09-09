@@ -20,7 +20,8 @@ class AutorController extends Controller
             $autoresBusca->where('Nome', 'like', '%' . $request->search . '%');
         }
 
-        $autores = $autoresBusca->paginate(2)->appends($request->all());
+        $perPage = $request->input('perPage', 5);
+        $autores = $autoresBusca->paginate($perPage)->appends($request->all());
 
         return view('autores.index', compact('autores'));
     }

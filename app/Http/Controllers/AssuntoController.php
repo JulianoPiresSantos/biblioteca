@@ -20,7 +20,8 @@ class AssuntoController extends Controller
             $assuntosBusca->where('Descricao', 'like', '%' . $request->search . '%');
         }
 
-        $assuntos = $assuntosBusca->paginate(2)->appends($request->all());
+        $perPage = $request->input('perPage', 5);
+        $assuntos = $assuntosBusca->paginate($perPage)->appends($request->all());
 
         return view('assuntos.index', compact('assuntos'));
     }

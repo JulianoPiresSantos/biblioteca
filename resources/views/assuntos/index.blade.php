@@ -16,7 +16,7 @@
     </div>
     <form action="{{ route('assuntos.index') }}" method="GET" class="mb-3">
         <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Pesquisar por Descrição" value="{{ request('search') }}">
+            <input type="text" name="search" class="form-control" placeholder="Pesquisar por descrição" value="{{ request('search') }}">
             <button class="btn btn-outline-primary" type="submit">
                 <i class="fas fa-search"></i> Buscar
             </button>
@@ -63,6 +63,7 @@
         </div>
 
         <div class="mt-3 d-flex justify-content-center">
+            @include('components.perpage')
             {{ $assuntos->links() }}
         </div>
     @endif
