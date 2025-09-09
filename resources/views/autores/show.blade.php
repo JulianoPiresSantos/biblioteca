@@ -10,14 +10,14 @@
             <h3>{{ $autor->Nome }}</h3>
         </div>
         <div class="card-body">
-            <p><strong>Livros:</strong></p>
+            <p><strong>Livros do autor:</strong></p>
             @forelse ($autor->livros as $livro)
                 <ul>
                     <li><strong>Título: </strong>{{ $livro->Titulo }}</li>
                     <li><strong>Editora: </strong>{{ $livro->Editora }}</li>
                     <li><strong>Edição: </strong>{{ $livro->Edicao }}</li>
                     <li><strong>Ano da Publicação: </strong>{{ $livro->AnoPublicacao }}</li>
-                    <li><strong>Valor (R$): </strong>{{ number_format($livro->valor, 2, ',', '.') }}</li>
+                    <li><strong>Valor (R$): </strong>{{ number_format($livro->Valor, 2, ',', '.') }}</li>
                 </ul>
                 <hr>
             @empty

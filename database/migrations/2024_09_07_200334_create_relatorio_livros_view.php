@@ -13,19 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement('
-                CREATE VIEW relatorio_livros AS
-                    SELECT
-                        a."Nome" AS Autor,
-                        array_agg(DISTINCT l."Titulo") AS Livros,
-                        array_agg(DISTINCT l."Editora") AS Editoras,
-                        array_agg(DISTINCT l."AnoPublicacao") AS AnosPublicacao,
-                        array_agg(DISTINCT s."Descricao") AS Assuntos
-                    FROM "Autor" a
-                        JOIN "Livro_Autor" la ON a."CodAu" = la."Autor_CodAu"
-                        JOIN "Livro" l ON la."Livro_CodL" = l."CodL"
-                        JOIN "Livro_Assunto" las ON l."CodL" = las."Livro_CodL"
-                        JOIN "Assunto" s ON las."Assunto_codAs" = s."codAs"
-                    GROUP BY a."Nome";
+            CREATE VIEW relatorio_livros AS
+            SELECT
+                a."Nome" AS autor,
+                l."Titulo" AS livro,
+                STRING_AGG(DISTINCT l."Editora", \', \') AS editoras,
+                l."AnoPublicacao" AS ano_publicacao,
+                STRING_AGG(DISTINCT s."Descricao", \', \') AS assuntos
+            FROM "Autor" a
+                JOIN "Livro_Autor" la ON a."CodAu" = la."Autor_CodAu"
+                JOIN "Livro" l ON la."Livro_CodL" = l."CodL"
+                JOIN "Livro_Assunto" las ON l."CodL" = las."Livro_CodL"
+                JOIN "Assunto" s ON las."Assunto_codAs" = s."codAs"
+            GROUP BY a."Nome", l."Titulo", l."AnoPublicacao";
         ');
     }
 

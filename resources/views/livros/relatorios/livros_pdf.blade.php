@@ -2,8 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Livros</title>
+    <title>Relatório Detalhado de Livros</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -14,38 +13,40 @@
             border-collapse: collapse;
         }
         th, td {
-            border: 1px solid black;
+            border: 1px solid #333;
             padding: 8px;
-            text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #eaeaea;
         }
     </style>
 </head>
 <body>
-<h1>Relatório de Livros</h1>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Autor</th>
-        <th>Livros</th>
-        <th>Editora</th>
-        <th>Ano de Publicação</th>
-        <th>Assuntos</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach ($livros as $livro)
+<div class="container mt-4">
+    <h2 class="mb-4">Relatório Detalhado de Livros</h2>
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>{{ $livro->autor }}</td>
-            <td>{{ $livro->livros }}</td>
-            <td>{{ $livro->editoras }}</td>
-            <td>{{ $livro->anospublicacao }}</td>
-            <td>{{ $livro->assuntos }}</td>
+            <th>Autor</th>
+            <th>Livro</th>
+            <th>Editora(s)</th>
+            <th>Ano de Publicação</th>
+            <th>Assunto(s)</th>
         </tr>
-    @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach ($livros as $livro)
+            <tr>
+                <td>{{ $livro->autor }}</td>
+                <td>{{ $livro->livro }}</td>
+                <td>{{ $livro->editoras }}</td>
+                <td>{{ $livro->ano_publicacao }}</td>
+                <td>{{ $livro->assuntos }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
+
