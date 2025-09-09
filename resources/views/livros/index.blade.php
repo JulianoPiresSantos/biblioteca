@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0"><i class="fas fa-book me-2"></i>Livros</h2>
+        <h2 class="mb-0"><i class="fas fa-book me-2"></i> Livros</h2>
         <div class="d-flex gap-2">
             <a href="{{ route('livros.create') }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-plus"></i> Adicionar

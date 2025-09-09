@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0"><i class="fas fa-book me-2"></i>Autores</h2>
+        <h2 class="mb-0"><i class="fas fa-user me-2"></i>Autores</h2>
         <div class="d-flex gap-2">
             <a href="{{ route('autores.create') }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-plus"></i> Adicionar
@@ -14,7 +14,6 @@
             </a>
         </div>
     </div>
-
     <form action="{{ route('autores.index') }}" method="GET" class="mb-3">
         <div class="input-group">
             <input type="text" name="search" class="form-control" placeholder="Pesquisar por nome" value="{{ request('search') }}">
@@ -23,7 +22,6 @@
             </button>
         </div>
     </form>
-
     @if($autores->isEmpty())
         <div class="alert alert-warning">Nenhum autor encontrado.</div>
     @else

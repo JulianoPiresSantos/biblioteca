@@ -3,80 +3,75 @@
 @section('title', 'Adicionar Livro')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="fas fa-book-medical me-2"></i> Adicionar Novo Livro</h5>
-                    </div>
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <form action="{{ route('livros.store') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="titulo" class="form-label">Título</label>
-                                <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo') }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="editora" class="form-label">Editora</label>
-                                <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="edicao" class="form-label">Edição</label>
-                                <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="ano_publicacao" class="form-label">Ano de Publicação</label>
-                                <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="valor" class="form-label">Valor (R$)</label>
-                                <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor') }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="autores" class="form-label">Autores</label>
-                                <select name="autores[]" id="autores" class="form-select" multiple>
-                                    @foreach($autores as $autor)
-                                        <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', [])) ? 'selected' : '' }}>
-                                            {{ $autor->Nome }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="assuntos" class="form-label">Assuntos</label>
-                                <select name="assuntos[]" id="assuntos" class="form-select" multiple>
-                                    @foreach($assuntos as $assunto)
-                                        <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', [])) ? 'selected' : '' }}>
-                                            {{ $assunto->Descricao }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('livros.index') }}" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left me-1"></i> Cancelar
-                                </a>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-check me-1"></i> Salvar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="fas fa-book-medical me-2"></i>Cadastrar livro</h2>
+        <div class="d-flex gap-2">
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-file-alt"></i> Relatório
+            </a>
         </div>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('livros.store') }}" method="POST">
+        @csrf
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
+            <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo') }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="editora" class="form-label">Editora<span class="text-danger">*</span></label>
+            <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora') }}">
+        </div>
+        <div class="mb-3">
+            <label for="edicao" class="form-label">Edição<span class="text-danger">*</span></label>
+            <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao') }}">
+        </div>
+        <div class="mb-3">
+            <label for="ano_publicacao" class="form-label">Ano de Publicação<span class="text-danger">*</span></label>
+            <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao') }}">
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor (R$)<span class="text-danger">*</span></label>
+            <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor') }}">
+        </div>
+        <div class="mb-3">
+            <label for="autores" class="form-label">Autores<span class="text-danger">*</span></label>
+            <select name="autores[]" id="autores" class="form-select" multiple>
+                @foreach($autores as $autor)
+                    <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', [])) ? 'selected' : '' }}>
+                        {{ $autor->Nome }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="assuntos" class="form-label">Assuntos<span class="text-danger">*</span></label>
+            <select name="assuntos[]" id="assuntos" class="form-select" multiple>
+                @foreach($assuntos as $assunto)
+                    <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', [])) ? 'selected' : '' }}>
+                        {{ $assunto->Descricao }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="d-flex justify-content-beginning">
+            <a href="{{ route('livros.index') }}" class="btn btn-secondary me-2">
+                <i class="fas fa-arrow-left me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check me-1"></i> Salvar
+            </button>
+        </div>
+    </form>
 @endsection
 @push('scripts')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

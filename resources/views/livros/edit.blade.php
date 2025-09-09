@@ -3,107 +3,78 @@
 @section('title', 'Editar Livro')
 
 @section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="fas fa-book-medical me-2"></i>Editar livro</h2>
+        <div class="d-flex gap-2">
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
+                <i class="fas fa-file-alt"></i> Relatório
+            </a>
+        </div>
+    </div>
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul class="mb-0">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
     @endif
-
-    <h1>Editar Livro</h1>
-
     <form action="{{ route('livros.update', $livro->CodL) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <div class="form-group mb-3">
-            <label for="titulo">Título</label>
-            <input
-                type="text"
-                name="Titulo"
-                id="titulo"
-                class="form-control"
-                value="{{ old('Titulo', $livro->Titulo) }}"
-            >
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
+            <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo', $livro->Titulo) }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="editora" class="form-label">Editora<span class="text-danger">*</span></label>
+            <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora', $livro->Editora) }}">
+        </div>
+        <div class="mb-3">
+            <label for="edicao" class="form-label">Edição<span class="text-danger">*</span></label>
+            <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao', $livro->Edicao) }}">
+        </div>
+        <div class="mb-3">
+            <label for="ano_publicacao" class="form-label">Ano de Publicação<span class="text-danger">*</span></label>
+            <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao', $livro->AnoPublicacao) }}">
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor (R$)<span class="text-danger">*</span></label>
+            <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor', $livro->Valor) }}">
         </div>
 
-        <div class="form-group mb-3">
-            <label for="editora">Editora</label>
-            <input
-                type="text"
-                name="Editora"
-                id="editora"
-                class="form-control"
-                value="{{ old('Editora', $livro->Editora) }}"
-            >
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="edicao">Edição</label>
-            <input
-                type="number"
-                name="Edicao"
-                id="edicao"
-                class="form-control"
-                value="{{ old('Edicao', $livro->Edicao) }}"
-            >
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="ano_publicacao">Ano de Publicação</label>
-            <input
-                type="text"
-                name="AnoPublicacao"
-                id="ano_publicacao"
-                class="form-control"
-                value="{{ old('AnoPublicacao', $livro->AnoPublicacao) }}"
-            >
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="valor">Valor (R$)</label>
-            <input
-                type="text"
-                name="Valor"
-                id="valor"
-                class="form-control"
-                value="{{ old('Valor', $livro->Valor) }}"
-            >
-        </div>
-
-        <!-- Seção de seleção múltipla para Autores -->
-        <div class="form-group mb-3">
-            <label for="autores">Autores</label>
-            <select name="autores[]" id="autores" class="form-control" multiple>
-                <option></option> <!-- Placeholder -->
+        <div class="mb-3">
+            <label for="autores" class="form-label">Autores<span class="text-danger">*</span></label>
+            <select name="autores[]" id="autores" class="form-select" multiple>
                 @foreach($autores as $autor)
-                    <option value="{{ $autor->CodAu }}"
-                        {{ in_array($autor->CodAu, old('autores', $livro->autores->pluck('CodAu')->toArray())) ? 'selected' : '' }}>
+                    <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', $livro->autores->pluck('CodAu')->toArray())) ? 'selected' : '' }}>
                         {{ $autor->Nome }}
                     </option>
                 @endforeach
             </select>
         </div>
 
-        <!-- Seção de seleção múltipla para Assuntos -->
-        <div class="form-group mb-3">
-            <label for="assuntos">Assuntos</label>
-            <select name="assuntos[]" id="assuntos" class="form-control" multiple>
-                <option></option> <!-- Placeholder -->
+        <div class="mb-4">
+            <label for="assuntos" class="form-label">Assuntos<span class="text-danger">*</span></label>
+            <select name="assuntos[]" id="assuntos" class="form-select" multiple>
                 @foreach($assuntos as $assunto)
-                    <option value="{{ $assunto->codAs }}"
-                        {{ in_array($assunto->codAs, old('assuntos', $livro->assuntos->pluck('codAs')->toArray())) ? 'selected' : '' }}>
+                    <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', $livro->assuntos->pluck('codAs')->toArray())) ? 'selected' : '' }}>
                         {{ $assunto->Descricao }}
                     </option>
                 @endforeach
             </select>
         </div>
 
-        <button type="submit" class="btn btn-success">Atualizar</button>
-        <a href="{{ route('livros.index') }}" class="btn btn-secondary">Cancelar</a>
+        <div class="d-flex justify-content-beginning">
+            <a href="{{ route('livros.index') }}" class="btn btn-secondary me-2">
+                <i class="fas fa-arrow-left me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check me-1"></i> Atualizar
+            </button>
+        </div>
     </form>
 @endsection
 
@@ -111,13 +82,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
-        /* retira o calendário */
         .ui-datepicker-calendar {
             display: none;
         }
-        /*.ui-datepicker .ui-datepicker-buttonpane .ui-datepicker-close {
-            display: none;
-        }*/
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -142,6 +109,7 @@
                 currentText: 'Hoje',
                 dateFormat: 'yy',
             });
+
             $('#ano_publicacao').datepicker({
                 changeYear: true,
                 showButtonPanel: true,
