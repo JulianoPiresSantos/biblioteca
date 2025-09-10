@@ -13,6 +13,7 @@ class Assunto extends Model
     protected $primaryKey = 'codAs';
 
     protected $fillable = ['Descricao'];
+    public $timestamps = true;
 
     public function livros()
     {

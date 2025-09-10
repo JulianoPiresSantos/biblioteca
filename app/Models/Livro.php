@@ -10,6 +10,7 @@ class Livro extends Model
     protected $primaryKey = 'CodL';
 
     protected $fillable = ['Titulo', 'Editora', 'Edicao', 'AnoPublicacao', 'Valor'];
+    public $timestamps = true;
 
     public function autores()
     {

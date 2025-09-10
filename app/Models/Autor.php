@@ -12,6 +12,7 @@ class Autor extends Model
     protected $primaryKey = 'CodAu';
 
     protected $fillable = ['Nome'];
+    public $timestamps = true;
 
     public function livros()
     {

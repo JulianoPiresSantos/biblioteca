@@ -17,8 +17,19 @@ class AutorController extends Controller
         $autoresBusca = Autor::query();
 
         if ($request->has('search') && !empty($request->search)) {
-            $autoresBusca->where('Nome', 'like', '%' . $request->search . '%');
+            $autoresBusca->where('Nome', 'ilike', '%' . $request->search . '%');
         }
+
+        $autoresBusca->orderByRaw("
+            CASE
+                WHEN updated_at IS NOT NULL THEN 1
+                WHEN created_at IS NOT NULL THEN 2
+                ELSE 3
+            END,
+            updated_at DESC NULLS LAST,
+            created_at DESC NULLS LAST,
+            \"CodAu\" ASC
+        ");
 
         $perPage = $request->input('perPage', 5);
         $autores = $autoresBusca->paginate($perPage)->appends($request->all());

@@ -23,47 +23,53 @@
 
     <form action="{{ route('livros.store') }}" method="POST">
         @csrf
-        <div class="mb-3">
-            <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
-            <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo') }}" required>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
+                <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo') }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="editora" class="form-label">Editora<span class="text-danger">*</span></label>
+                <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora') }}">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="editora" class="form-label">Editora<span class="text-danger">*</span></label>
-            <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora') }}">
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="edicao" class="form-label">Edição<span class="text-danger">*</span></label>
+                <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao') }}">
+            </div>
+            <div class="col-md-3">
+                <label for="ano_publicacao" class="form-label">Ano de Publicação<span class="text-danger">*</span></label>
+                <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao') }}">
+            </div>
+            <div class="col-md-6">
+                <label for="valor" class="form-label">Valor (R$)<span class="text-danger">*</span></label>
+                <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor') }}">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="edicao" class="form-label">Edição<span class="text-danger">*</span></label>
-            <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao') }}">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="autores" class="form-label">Autores<span class="text-danger">*</span></label>
+                <select name="autores[]" id="autores" class="form-select" multiple>
+                    @foreach($autores as $autor)
+                        <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', [])) ? 'selected' : '' }}>
+                            {{ $autor->Nome }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="assuntos" class="form-label">Assuntos<span class="text-danger">*</span></label>
+                <select name="assuntos[]" id="assuntos" class="form-select" multiple>
+                    @foreach($assuntos as $assunto)
+                        <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', [])) ? 'selected' : '' }}>
+                            {{ $assunto->Descricao }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="ano_publicacao" class="form-label">Ano de Publicação<span class="text-danger">*</span></label>
-            <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao') }}">
-        </div>
-        <div class="mb-3">
-            <label for="valor" class="form-label">Valor (R$)<span class="text-danger">*</span></label>
-            <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor') }}">
-        </div>
-        <div class="mb-3">
-            <label for="autores" class="form-label">Autores<span class="text-danger">*</span></label>
-            <select name="autores[]" id="autores" class="form-select" multiple>
-                @foreach($autores as $autor)
-                    <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', [])) ? 'selected' : '' }}>
-                        {{ $autor->Nome }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-4">
-            <label for="assuntos" class="form-label">Assuntos<span class="text-danger">*</span></label>
-            <select name="assuntos[]" id="assuntos" class="form-select" multiple>
-                @foreach($assuntos as $assunto)
-                    <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', [])) ? 'selected' : '' }}>
-                        {{ $assunto->Descricao }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="d-flex justify-content-beginning">
+        <div class="d-flex justify-content-end">
             <a href="{{ route('livros.index') }}" class="btn btn-secondary me-2">
                 <i class="fas fa-arrow-left me-1"></i> Cancelar
             </a>

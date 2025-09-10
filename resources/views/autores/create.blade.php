@@ -29,7 +29,7 @@
             <input type="text" name="Nome" id="nome" class="form-control" value="{{ old('Nome') }}">
         </div>
 
-        <div class="d-flex justify-content-beginning">
+        <div class="d-flex justify-content-end">
             <a href="{{ route('autores.index') }}" class="btn btn-secondary me-2">
                 <i class="fas fa-arrow-left me-1"></i> Cancelar
             </a>

@@ -74,7 +74,8 @@
         th, td {
             border: 1px solid #333;
             /*padding: 5px;*/
-            padding: 10px;
+            /*padding: 10px;*/
+            padding: 11px;
             vertical-align: top;
         }
 

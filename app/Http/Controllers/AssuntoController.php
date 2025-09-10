@@ -17,8 +17,19 @@ class AssuntoController extends Controller
         $assuntosBusca = Assunto::query();
 
         if ($request->has('search') && !empty($request->search)) {
-            $assuntosBusca->where('Descricao', 'like', '%' . $request->search . '%');
+            $assuntosBusca->where('Descricao', 'ilike', '%' . $request->search . '%');
         }
+
+        $assuntosBusca->orderByRaw("
+            CASE
+                WHEN updated_at IS NOT NULL THEN 1
+                WHEN created_at IS NOT NULL THEN 2
+                ELSE 3
+            END,
+            updated_at DESC NULLS LAST,
+            created_at DESC NULLS LAST,
+            \"codAs\" ASC
+        ");
 
         $perPage = $request->input('perPage', 5);
         $assuntos = $assuntosBusca->paginate($perPage)->appends($request->all());

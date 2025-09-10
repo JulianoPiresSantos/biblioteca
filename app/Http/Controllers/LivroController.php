@@ -19,8 +19,20 @@ class LivroController extends Controller
 
         if ($request->has('search') && !empty($request->search)) {
 
-            $livrosBusca->where('Titulo', 'like', '%' . $request->search . '%');
+            $livrosBusca->where('Titulo', 'ilike', '%' . $request->search . '%');
         }
+
+        $livrosBusca->orderByRaw("
+            CASE
+                WHEN updated_at IS NOT NULL THEN 1
+                WHEN created_at IS NOT NULL THEN 2
+                ELSE 3
+            END,
+            updated_at DESC NULLS LAST,
+            created_at DESC NULLS LAST,
+            \"CodL\" ASC
+        ");
+
         $perPage = $request->input('perPage', 5);
         $livros = $livrosBusca->paginate($perPage)->appends($request->all());
 
