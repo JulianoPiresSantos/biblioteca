@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\RelatorioLivro;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class RelatorioController extends Controller
 {
     public function generateReport()
     {
-        $livros = RelatorioLivro::all();
+        $livros = RelatorioLivro::all()
+            ->groupBy('autor');
 
-        $pdf = PDF::loadView('livros.relatorios.livros_pdf', compact('livros'))->setPaper('a4', 'landscape');
-        return $pdf->download('relatorio_de_livros.pdf');
+        $pdf = Pdf::loadView(
+            'livros.relatorios.livros_pdf',
+            compact('livros'))
+            ->setPaper('a4', 'landscape');
+        return $pdf->download('relatorio_livros_tjrj_' .  Carbon::now()->format('Y-m-d_H-i-s') . '.pdf');
     }
 
 }
