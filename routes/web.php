@@ -16,4 +16,5 @@ Route::resource('autores', AutorController::class)->parameters([
 ]);
 Route::resource('assuntos', AssuntoController::class);
 Route::get('/relatorio/livros', [RelatorioController::class, 'generateReport'])->name('relatorios.livros');
+Route::resource('relatorio', RelatorioController::class);
 

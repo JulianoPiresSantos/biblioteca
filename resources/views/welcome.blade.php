@@ -37,7 +37,8 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <a href="{{ route('relatorios.livros') }}" class="text-decoration-none">
+                <a href="{{ route('relatorio.index') }}" class="text-decoration-none">
+                {{--<a href="{{ route('relatorios.livros') }}" class="text-decoration-none">--}}
                     <div class="card shadow-sm h-100 text-center p-4 hover-shadow">
                         <i class="fas fa-table fa-3x text-danger mb-3"></i>
                         <h5 class="text-dark">Relatório</h5>

@@ -8,6 +8,16 @@ use Carbon\Carbon;
 
 class RelatorioController extends Controller
 {
+    public function index()
+    {
+        $livrosBusca = RelatorioLivro::all()
+            ->groupBy('autor');
+
+        $livros = $livrosBusca;
+
+        return view('livros.relatorios.relatorio', compact('livros'));
+    }
+
     public function generateReport()
     {
         $livros = RelatorioLivro::all()

@@ -71,7 +71,7 @@
         </a>
     </div>
     <a href="{{ route('welcome') }}" class="{{ request()->is('/') ? 'active' : '' }}">
-        <i class="fas fa-book"></i> Início
+        <i class="fas fa-home"></i> Início
     </a>
     <a href="{{ route('livros.index') }}" class="{{ request()->is('livros*') ? 'active' : '' }}">
         <i class="fas fa-book"></i> Livros
@@ -81,6 +81,9 @@
     </a>
     <a href="{{ route('assuntos.index') }}" class="{{ request()->is('assuntos*') ? 'active' : '' }}">
         <i class="fas fa-tags"></i> Assuntos
+    </a>
+    <a href="{{ route('relatorio.index') }}" class="{{ request()->is('relatorio*') ? 'active' : '' }}">
+        <i class="fas fa-table"></i> Relatorio
     </a>
 </div>
 
