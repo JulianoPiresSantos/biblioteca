@@ -9,9 +9,16 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Services\AutorService;
 
 class AutorController extends Controller
 {
+    protected AutorService $autorService;
+
+    public function __construct(AutorService $autorService)
+    {
+        $this->autorService = $autorService;
+    }
     public function index(Request $request)
     {
         $autoresBusca = Autor::query();
@@ -45,32 +52,14 @@ class AutorController extends Controller
     public function store(AutorRequest $request)
     {
         try {
-            DB::beginTransaction();
+            $this->autorService->create($request->all());
 
-            Autor::create($request->all());
-
-            DB::commit();
-
-            return redirect()->route('autores.index')->with('success', 'Autor adicionado com sucesso!');
-        } catch (QueryException $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'Erro ao salvar o autor no banco de dados.']);
-        } catch (\PDOException $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'Erro de conexão com o banco de dados.']);
+            return redirect()->route('autores.index')
+                ->with('success', 'Autor adicionado com sucesso!');
         } catch (\Exception $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao tentar adicionar o autor.']);
+            return redirect()
+                ->back()
+                ->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -80,6 +69,20 @@ class AutorController extends Controller
     }
 
     public function update(AutorRequest $request, Autor $autor)
+    {
+        try {
+            $this->autorService->update($autor, $request->all());
+
+            return redirect()->route('autores.index')
+                ->with('success', 'Autor atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /*public function update(AutorRequest $request, Autor $autor)
     {
         try {
             DB::beginTransaction();
@@ -109,7 +112,8 @@ class AutorController extends Controller
 
             return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao tentar atualizar o autor.']);
         }
-    }
+    }*/
+
 
     public function show(Autor $autor)
     {

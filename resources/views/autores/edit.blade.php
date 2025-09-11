@@ -28,7 +28,7 @@
             <label for="nome" class="form-label">
                 Nome<span class="text-danger">*</span>
             </label>
-            <input type="text" name="Nome" id="nome" class="form-control" value="{{ old('Nome', $autor->Nome) }}">
+            <input type="text" name="Nome" id="nome" class="form-control" value="{{ old('Nome2', $autor->Nome) }}">
         </div>
         <div class="d-flex justify-content-end">
             <a href="{{ route('autores.index') }}" class="btn btn-secondary me-2">

@@ -27,25 +27,25 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
-                <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo', $livro->Titulo) }}" required>
+                <input type="text" name="Titulo" id="titulo" class="form-control" value="{{ old('Titulo1', $livro->Titulo) }}">
             </div>
             <div class="col-md-6">
                 <label for="editora" class="form-label">Editora<span class="text-danger">*</span></label>
-                <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora', $livro->Editora) }}">
+                <input type="text" name="Editora" id="editora" class="form-control" value="{{ old('Editora1', $livro->Editora) }}">
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-3">
                 <label for="edicao" class="form-label">Edição<span class="text-danger">*</span></label>
-                <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao', $livro->Edicao) }}">
+                <input type="number" name="Edicao" id="edicao" class="form-control" value="{{ old('Edicao1', $livro->Edicao) }}">
             </div>
             <div class="col-md-3">
                 <label for="ano_publicacao" class="form-label">Ano de Publicação<span class="text-danger">*</span></label>
-                <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao', $livro->AnoPublicacao) }}">
+                <input type="text" name="AnoPublicacao" id="ano_publicacao" class="form-control" value="{{ old('AnoPublicacao1', $livro->AnoPublicacao) }}">
             </div>
             <div class="col-md-6">
                 <label for="valor" class="form-label">Valor (R$)<span class="text-danger">*</span></label>
-                <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor', $livro->Valor) }}">
+                <input type="text" name="Valor" id="valor" class="form-control" value="{{ old('Valor1', $livro->Valor) }}">
             </div>
         </div>
         <div class="row mb-3">
@@ -53,7 +53,7 @@
                 <label for="autores" class="form-label">Autores<span class="text-danger">*</span></label>
                 <select name="autores[]" id="autores" class="form-select" multiple>
                     @foreach($autores as $autor)
-                        <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores', $livro->autores->pluck('CodAu')->toArray())) ? 'selected' : '' }}>
+                        <option value="{{ $autor->CodAu }}" {{ in_array($autor->CodAu, old('autores1', $livro->autores->pluck('CodAu')->toArray())) ? 'selected' : '' }}>
                             {{ $autor->Nome }}
                         </option>
                     @endforeach
@@ -63,7 +63,7 @@
                 <label for="assuntos" class="form-label">Assuntos<span class="text-danger">*</span></label>
                 <select name="assuntos[]" id="assuntos" class="form-select" multiple>
                     @foreach($assuntos as $assunto)
-                        <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos', $livro->assuntos->pluck('codAs')->toArray())) ? 'selected' : '' }}>
+                        <option value="{{ $assunto->codAs }}" {{ in_array($assunto->codAs, old('assuntos1', $livro->assuntos->pluck('codAs')->toArray())) ? 'selected' : '' }}>
                             {{ $assunto->Descricao }}
                         </option>
                     @endforeach
