@@ -4,88 +4,90 @@
     <meta charset="UTF-8">
     <title>Relatório Detalhado de Livros</title>
     <style>
-       body {
-           font-family: 'Helvetica', 'Arial', sans-serif;
-           font-size: 12px;
-           margin: 2.5cm 1.5cm 2cm 1.5cm;
-       }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-size: 12px;
+            margin: 2.5cm 1.5cm 2cm 1.5cm;
+        }
 
-       header {
-           position: fixed;
-           top: 1cm;
-           left: 1.5cm;
-           right: 1.5cm;
-           height: 1.5cm;
-           display: flex;
-           align-items: center;
-           justify-content: flex-start;
-       }
+        header {
+            position: fixed;
+            top: 1cm;
+            left: 1.5cm;
+            right: 1.5cm;
+            height: 1.5cm;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
 
-       header img {
-           width: 100px;
-           height: auto;
-       }
+        header img {
+            width: 100px;
+            height: auto;
+        }
 
-       footer {
-           position: fixed;
-           bottom: -1cm;
-           left: 0;
-           right: 0;
-           height: 1cm;
-           text-align: center;
-           font-size: 10px;
-           color: #666;
-       }
+        footer {
+            position: fixed;
+            bottom: -1cm;
+            left: 0;
+            right: 0;
+            height: 1cm;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+        }
 
-       .pagenum:before {
-           content: counter(page);
-       }
+        .pagenum:before {
+            content: counter(page);
+        }
 
-       .report-title {
-           font-size: 16px;
-           font-weight: bold;
-           text-align: center;
-           margin-top: 2cm;
-           margin-bottom: 0.5cm;
-       }
+        .report-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 2cm;
+            margin-bottom: 0.5cm;
+        }
 
-       table {
-           width: 100%;
-           border-collapse: collapse;
-           margin-top: 0.2cm;
-       }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.2cm;
+        }
 
-       th, td {
-           border: 1px solid #333;
-           padding: 10px;
-           vertical-align: top;
-       }
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            vertical-align: top;
+        }
 
-       th {
-           background-color: #eaeaea;
-           text-align: center;
-       }
+        th {
+            background-color: #eaeaea;
+            text-align: center;
+        }
 
-       tr {
-           page-break-inside: avoid;
-       }
+        tr {
+            page-break-inside: avoid;
+        }
 
-       thead {
-           display: table-header-group;
-       }
+        thead {
+            display: table-header-group;
+        }
 
-       tfoot {
-           display: table-row-group;
-       }
+        tfoot {
+            display: table-row-group;
+        }
 
-       @media print {
-           .only-first-page {
-               display: block;
-           }
-           .not-on-first-page {
-               display: none;
-           }
-       }
+        .totals {
+            margin-top: 1cm;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .totals div {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -110,10 +112,16 @@
             <th>Edição</th>
             <th>Ano de Publicação</th>
             <th>Assunto(s)</th>
+            <th>Valor</th>
         </tr>
         </thead>
         <tbody>
-        {{--@foreach ($livros as $autor => $listaLivros)
+        @php
+            $totalLivros = 0;
+            $totalValor = 0;
+            $livrosContados = [];
+        @endphp
+        @foreach ($livros as $autor => $listaLivros)
             @foreach ($listaLivros as $livro)
                 <tr>
                     <td>{{ $autor }}</td>
@@ -122,27 +130,25 @@
                     <td>{{ $livro->edicao . "ª"}}</td>
                     <td>{{ $livro->ano_publicacao }}</td>
                     <td>{{ $livro->assuntos }}</td>
+                    <td>{{ "R$ " . number_format($livro->valor, 2, ',', '.') }}</td>
                 </tr>
-            @endforeach
-        @endforeach--}}
-        @foreach ($livros as $autor => $listaLivros)
-            @foreach ($listaLivros as $i => $livro)
-                <tr>
-                    @if ($i == 0)
-                        <td rowspan="{{ count($listaLivros) }}">
-                            {{ $autor }}
-                        </td>
-                    @endif
-                    <td>{{ $livro->livro }}</td>
-                    <td>{{ $livro->editoras }}</td>
-                    <td>{{ $livro->edicao . "ª"}}</td>
-                    <td>{{ $livro->ano_publicacao }}</td>
-                    <td>{{ $livro->assuntos }}</td>
-                </tr>
+                @php
+                    if (!in_array($livro->livro, $livrosContados)) {
+                        $totalLivros++;
+                        $totalValor += $livro->valor;
+                        $livrosContados[] = $livro->livro;
+                    }
+                @endphp
             @endforeach
         @endforeach
         </tbody>
     </table>
+
+    <!-- Totais exibidos apenas no final -->
+    <div class="totals">
+        <div>Quantidade total de livros: {{ $totalLivros }}</div>
+        <div>Valor total: {{ "R$ " . number_format($totalValor, 2, ',', '.') }}</div>
+    </div>
 </main>
 
 </body>
