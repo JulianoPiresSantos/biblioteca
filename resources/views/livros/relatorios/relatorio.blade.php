@@ -27,6 +27,7 @@
             @php
                 $totalLivros = 0;
                 $totalValor = 0;
+                $livrosContados = [];
             @endphp
             @foreach ($livros as $autor => $listaLivros)
                 @foreach ($listaLivros as $i => $livro)
@@ -44,8 +45,11 @@
                         <td>{{ "R$ " . number_format($livro->valor, 2, ',', '.') }}</td>
                     </tr>
                     @php
-                        $totalLivros++;
-                        $totalValor += $livro->valor;
+                        if (!in_array($livro->livro, $livrosContados)) {
+                            $totalLivros++;
+                            $totalValor += $livro->valor;
+                            $livrosContados[] = $livro->livro;
+                        }
                     @endphp
                 @endforeach
             @endforeach
