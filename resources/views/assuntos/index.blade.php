@@ -6,10 +6,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="fas fa-tags me-2"></i>Assuntos</h2>
         <div class="d-flex gap-2">
-            <a href="{{ route('assuntos.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('assuntos.create') }}" class="btn btn-primary btn-sm" title="Novo assunto">
                 <i class="fas fa-plus"></i> Adicionar
             </a>
-            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
                 <i class="fas fa-file-alt"></i> Relatório
             </a>
         </div>
@@ -29,18 +29,18 @@
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                 <tr>
-                    <th>ID</th>
+                    {{--<th>ID</th>--}}
                     <th>Descrição</th>
-                    <th>Ações</th>
+                    <th class="col-acoes">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($assuntos as $assunto)
                     <tr>
-                        <td>{{ $assunto->codAs }}</td>
+                        {{--<td>{{ $assunto->codAs }}</td>--}}
                         <td>{{ $assunto->Descricao }}</td>
-                        <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group">
+                        <td class="col-acoes">
+                            <div class="d-flex justify-content-center gap-1">
                                 <a href="{{ route('assuntos.show', $assunto->codAs) }}" class="btn btn-info" title="Visualizar">
                                     <i class="fas fa-eye"></i>
                                 </a>

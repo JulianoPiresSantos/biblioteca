@@ -6,10 +6,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="fas fa-user me-2"></i>Autores</h2>
         <div class="d-flex gap-2">
-            <a href="{{ route('autores.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('autores.create') }}" class="btn btn-primary btn-sm" title="Novo autor">
                 <i class="fas fa-plus"></i> Adicionar
             </a>
-            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
                 <i class="fas fa-file-alt"></i> Relatório
             </a>
         </div>
@@ -29,18 +29,18 @@
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                 <tr>
-                    <th>ID</th>
+                    {{--<th>ID</th>--}}
                     <th>Nome</th>
-                    <th>Ações</th>
+                    <th class="col-acoes">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($autores as $autor)
                     <tr>
-                        <td>{{ $autor->CodAu }}</td>
+                        {{--<td>{{ $autor->CodAu }}</td>--}}
                         <td>{{ $autor->Nome }}</td>
-                        <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group">
+                        <td class="col-acoes">
+                            <div class="d-flex justify-content-center gap-1">
                                 <a href="{{ route('autores.show', $autor->CodAu) }}" class="btn btn-info" title="Visualizar">
                                     <i class="fas fa-eye"></i>
                                 </a>

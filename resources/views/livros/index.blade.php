@@ -6,10 +6,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="fas fa-book me-2"></i> Livros</h2>
         <div class="d-flex gap-2">
-            <a href="{{ route('livros.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('livros.create') }}" class="btn btn-primary btn-sm" title="Novo livro">
                 <i class="fas fa-plus"></i> Adicionar
             </a>
-            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
+            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
                 <i class="fas fa-file-alt"></i> Relatório
             </a>
         </div>
@@ -31,24 +31,24 @@
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                 <tr>
-                    <th>ID</th>
+                    {{--<th>ID</th>--}}
                     <th>Título</th>
                     <th>Editora</th>
                     <th>Ano de Publicação</th>
                     <th>Valor (R$)</th>
-                    <th class="text-center">Ações</th>
+                    <th class="col-acoes">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($livros as $livro)
                     <tr>
-                        <td>{{ $livro->CodL }}</td>
+                        {{--<td>{{ $livro->CodL }}</td>--}}
                         <td>{{ $livro->Titulo }}</td>
                         <td>{{ $livro->Editora }}</td>
                         <td>{{ $livro->AnoPublicacao }}</td>
                         <td>{{ number_format($livro->Valor, 2, ',', '.') }}</td>
-                        <td class="text-center">
-                            <div class="btn-group btn-group-sm" role="group">
+                        <td class="col-acoes">
+                            <div class="d-flex justify-content-center gap-1">
                                 <a href="{{ route('livros.show', $livro->CodL) }}" class="btn btn-info" title="Visualizar">
                                     <i class="fas fa-eye"></i>
                                 </a>

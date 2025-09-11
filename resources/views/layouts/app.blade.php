@@ -55,6 +55,11 @@
             transition: all 0.3s ease-in-out;
             transform: translateY(-3px);
         }
+        .col-acoes {
+            width: 150px;
+            min-width: 150px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +70,9 @@
             <i class="fas fa-book-open"></i> Biblioteca
         </a>
     </div>
+    <a href="{{ route('welcome') }}" class="{{ request()->is('/') ? 'active' : '' }}">
+        <i class="fas fa-book"></i> Início
+    </a>
     <a href="{{ route('livros.index') }}" class="{{ request()->is('livros*') ? 'active' : '' }}">
         <i class="fas fa-book"></i> Livros
     </a>
