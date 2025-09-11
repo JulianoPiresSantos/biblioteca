@@ -1,30 +1,58 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes do Assunto')
+@section('title', 'Informações do Assunto')
 
 @section('content')
-    <h1>Detalhes do Assunto</h1>
-
-    <div class="card mb-3">
-        <div class="card-header">
-            <h3>{{ $assunto->Descricao }}</h3>
-        </div>
-        <div class="card-body">
-            <p><strong>Livros:</strong></p>
-            @forelse ($assunto->livros as $livro)
-                <ul>
-                    <li><strong>Título: </strong>{{ $livro->Titulo }}</li>
-                    <li><strong>Editora: </strong>{{ $livro->Editora }}</li>
-                    <li><strong>Edição: </strong>{{ $livro->Edicao }}</li>
-                    <li><strong>Ano da Publicação: </strong>{{ $livro->AnoPublicacao }}</li>
-                    <li><strong>Valor (R$): </strong>{{ number_format($livro->Valor, 2, ',', '.') }}</li>
-                </ul>
-                <hr>
-            @empty
-                <p>Não há Livros cadastrados para este Assunto</p>
-            @endforelse
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="fas fa-tag me-2"></i>Assunto</h2>
     </div>
 
-    <a href="{{ route('assuntos.index') }}" class="btn btn-primary">Voltar à lista</a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle w-auto">
+            <tbody>
+            <tr>
+                <th class="text-end">Descrição:</th>
+                <td>{{ $assunto->Descricao }}</td>
+            </tr>
+            <tr>
+                <th class="text-end align-top">Livros:</th>
+                <td>
+                    @forelse ($assunto->livros as $livro)
+                        <table class="table table-sm table-bordered mb-4">
+                            <tbody>
+                            <tr>
+                                <th>Título:</th>
+                                <td>{{ $livro->Titulo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Editora:</th>
+                                <td>{{ $livro->Editora }}</td>
+                            </tr>
+                            <tr>
+                                <th>Edição:</th>
+                                <td>{{ $livro->Edicao . "ª"}}</td>
+                            </tr>
+                            <tr>
+                                <th>Ano da Publicação:</th>
+                                <td>{{ $livro->AnoPublicacao }}</td>
+                            </tr>
+                            <tr>
+                                <th>Valor:</th>
+                                <td>{{ "R$" . number_format($livro->Valor, 2, ',', '.') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    @empty
+                        <p class="mb-0">Nenhum livro relacionado a este assunto.</p>
+                    @endforelse
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ route('assuntos.index') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-arrow-left"></i> Voltar à lista
+    </a>
 @endsection
+

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Livros')
+@section('title', 'Livro')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -34,8 +34,9 @@
                     {{--<th>ID</th>--}}
                     <th>Título</th>
                     <th>Editora</th>
+                    <th>Edição</th>
                     <th>Ano de Publicação</th>
-                    <th>Valor (R$)</th>
+                    <th>Valor</th>
                     <th class="col-acoes">Ações</th>
                 </tr>
                 </thead>
@@ -45,8 +46,9 @@
                         {{--<td>{{ $livro->CodL }}</td>--}}
                         <td>{{ $livro->Titulo }}</td>
                         <td>{{ $livro->Editora }}</td>
+                        <td>{{ $livro->Edicao . "ª" }}</td>
                         <td>{{ $livro->AnoPublicacao }}</td>
-                        <td>{{ number_format($livro->Valor, 2, ',', '.') }}</td>
+                        <td>{{ "R$" . number_format($livro->Valor, 2, ',', '.') }}</td>
                         <td class="col-acoes">
                             <div class="d-flex justify-content-center gap-1">
                                 <a href="{{ route('livros.show', $livro->CodL) }}" class="btn btn-info" title="Visualizar">

@@ -1,35 +1,64 @@
 @extends('layouts.app')
 
-@section('title', 'Detalhes do Livro')
+@section('title', 'Informações do Livro')
 
 @section('content')
-    <h1>Detalhes do Livro</h1>
-
-    <div class="card mb-3">
-        <div class="card-header">
-            <h3>{{ $livro->Titulo }}</h3>
-        </div>
-        <div class="card-body">
-            <p><strong>Editora:</strong> {{ $livro->Editora }}</p>
-            <p><strong>Edição:</strong> {{ $livro->Edicao }}</p>
-            <p><strong>Ano de Publicação:</strong> {{ $livro->AnoPublicacao }}</p>
-            <p><strong>Valor (R$):</strong> {{ number_format($livro->Valor, 2, ',', '.') }}</p>
-        </div>
-        <div class="card-footer">
-            <p><strong>Autores:</strong></p>
-            <ul>
-                @foreach ($livro->autores as $autor)
-                    <li>{{ $autor->Nome }}</li>
-                @endforeach
-            </ul>
-            <p><strong>Assuntos:</strong></p>
-            <ul>
-                @foreach ($livro->assuntos as $assunto)
-                    <li>{{ $assunto->Descricao }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0"><i class="fas fa-book me-2"></i>Livro</h2>
+        <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
+            <i class="fas fa-file-alt"></i> Relatório
+        </a>
     </div>
 
-    <a href="{{ route('livros.index') }}" class="btn btn-primary">Voltar à lista</a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle w-auto">
+            <tbody>
+            <tr>
+                <th>Título:</th>
+                <td>{{ $livro->Titulo }}</td>
+            </tr>
+            <tr>
+                <th>Editora:</th>
+                <td>{{ $livro->Editora }}</td>
+            </tr>
+            <tr>
+                <th>Edição:</th>
+                <td>{{ $livro->Edicao . "ª"}}</td>
+            </tr>
+            <tr>
+                <th>Ano de Publicação:</th>
+                <td>{{ $livro->AnoPublicacao }}</td>
+            </tr>
+            <tr>
+                <th>Valor:</th>
+                <td>{{ "R$" . number_format($livro->Valor, 2, ',', '.') }}</td>
+            </tr>
+            <tr>
+                <th>Autores:</th>
+                <td>
+                    <ul class="mb-0">
+                        @foreach ($livro->autores as $autor)
+                            <li>{{ $autor->Nome }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Assuntos:</th>
+                <td>
+                    <ul class="mb-0">
+                        @foreach ($livro->assuntos as $assunto)
+                            <li>{{ $assunto->Descricao }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ route('livros.index') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-arrow-left"></i> Voltar à lista
+    </a>
 @endsection
+
