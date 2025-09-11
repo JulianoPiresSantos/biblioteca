@@ -18,6 +18,7 @@ return new class extends Migration
                 a."Nome" AS autor,
                 l."Titulo" AS livro,
                 l."Edicao" AS edicao,
+                l."Valor" AS valor,
                 STRING_AGG(DISTINCT l."Editora", \', \') AS editoras,
                 l."AnoPublicacao" AS ano_publicacao,
                 STRING_AGG(DISTINCT s."Descricao", \', \') AS assuntos
@@ -26,7 +27,7 @@ return new class extends Migration
                 JOIN "Livro" l ON la."Livro_CodL" = l."CodL"
                 JOIN "Livro_Assunto" las ON l."CodL" = las."Livro_CodL"
                 JOIN "Assunto" s ON las."Assunto_codAs" = s."codAs"
-            GROUP BY a."Nome", l."Titulo", l."AnoPublicacao", l."Edicao";
+            GROUP BY a."Nome", l."Titulo", l."AnoPublicacao", l."Edicao", l."Valor";
         ');
     }
 
