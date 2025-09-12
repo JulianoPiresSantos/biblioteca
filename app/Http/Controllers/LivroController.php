@@ -6,6 +6,7 @@ use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
 use App\Models\Autor;
 use App\Models\Assunto;
+use App\Http\Traits\FormatadorTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ use Illuminate\View\View;
 
 class LivroController extends Controller
 {
+    use FormatadorTrait;
     public function __construct(private LivroService $livroService)
     {
     }

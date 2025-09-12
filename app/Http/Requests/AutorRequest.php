@@ -22,7 +22,7 @@ class AutorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'Nome' => 'required|min:1|max:40'
+            'Nome' => 'required|min:1|max:40|unique:Autor,Nome',
         ];
     }
 
@@ -38,7 +38,8 @@ class AutorRequest extends FormRequest
         return [
             'Nome.required' => 'O campo :attribute é obrigatório',
             'Nome.min' => 'O campo :attribute deve conter no mínimo 1 caractere',
-            'Nome.max' => 'O campo :attribute deve conter no máximo 40 caracteres'
+            'Nome.max' => 'O campo :attribute deve conter no máximo 40 caracteres',
+            'Nome.unique' => 'Já existe um autor com o mesmo :attribute'
         ];
     }
 }

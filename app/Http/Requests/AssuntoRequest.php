@@ -22,7 +22,7 @@ class AssuntoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'Descricao' => 'required|min:1|max:20'
+            'Descricao' => 'required|min:1|max:20|unique:Assunto,Descricao',
         ];
     }
 
@@ -38,7 +38,8 @@ class AssuntoRequest extends FormRequest
         return [
             'Descricao.required' => 'O campo :attribute é obrigatório',
             'Descricao.min' => 'O campo :attribute deve conter no mínimo 1 caractere',
-            'Descricao.max' => 'O campo :attribute deve conter no máximo 20 caracteres'
+            'Descricao.max' => 'O campo :attribute deve conter no máximo 20 caracteres',
+            'Descricao.unique' => 'O já existe um assuto com a mesma :attribute'
         ];
     }
 }

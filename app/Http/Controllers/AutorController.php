@@ -82,39 +82,6 @@ class AutorController extends Controller
         }
     }
 
-    /*public function update(AutorRequest $request, Autor $autor)
-    {
-        try {
-            DB::beginTransaction();
-
-            $autor->update($request->all());
-
-            DB::commit();
-
-            return redirect()->route('autores.index')->with('success', 'Autor atualizado com sucesso!');
-        } catch (QueryException $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'Erro ao atualizar o autor no banco de dados.']);
-        } catch (\PDOException $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()
-                ->back()
-                ->withErrors(['error' => 'Erro de conexão com o banco de dados.']);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-            return redirect()->back()->withErrors(['error' => 'Ocorreu um erro ao tentar atualizar o autor.']);
-        }
-    }*/
-
-
     public function show(Autor $autor)
     {
         $autor->load('livros');

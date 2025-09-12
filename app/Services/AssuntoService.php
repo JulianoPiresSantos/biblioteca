@@ -2,44 +2,34 @@
 
 namespace App\Services;
 
-use App\Models\Livro;
-use App\Http\Traits\FormatadorTrait;
+use App\Models\Assunto;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class LivroService
+class AssuntoService
 {
-    use FormatadorTrait;
-
     /**
-     * Cria um livro no banco de dados
+     * Cria um assunto no banco de dados
      *
      * @param array $data
-     * @return Livro
+     * @return Assunto
      * @throws \Exception|\PDOException|QueryException
      */
-    public function store(array $data): Livro
+    public function create(array $data): Assunto
     {
         try {
             DB::beginTransaction();
 
-            //throw new \PDOException('Simulação de erro de conexão com o banco de dados.');
-            $data['Valor'] = $this->retornaValorNumericoParaBD($data['Valor']);
-
-            $livro = Livro::create($data);
-
-            // Salva nas tabelas de junção/associativas
-            $livro->autores()->sync($data['autores']);
-            $livro->assuntos()->sync($data['assuntos']);
+            $autor = Assunto::create($data);
 
             DB::commit();
 
-            return $livro;
+            return $autor;
         } catch (QueryException $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            throw new \Exception('Erro ao salvar o autor no banco de dados.');
+            throw new \Exception('Erro ao salvar o assunto no banco de dados.');
         } catch (\PDOException $e) {
             DB::rollBack();
             Log::info($e->getMessage());
@@ -47,38 +37,32 @@ class LivroService
         } catch (\Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            throw new \Exception('Ocorreu um erro ao tentar criar o livro.');
-
+            throw new \Exception('Ocorreu um erro ao tentar adicionar o assunto.');
         }
-
     }
 
     /**
-     * Edita um livro no banco de dados
+     * Atualiza um assunto no banco de dados
      *
+     * @param Assunto $assunto
      * @param array $data
-     * @return Livro
+     * @return Assunto
      * @throws \Exception|\PDOException|QueryException
      */
-    public function update(Livro $livro, array $data) : Livro
+    public function update(Assunto $assunto, array $data): Assunto
     {
         try {
             DB::beginTransaction();
 
-            $data['Valor'] = $this->retornaValorNumericoParaBD($data['Valor']);
-
-            $livro->update($data);
-
-            $livro->autores()->sync($data['autores']);
-            $livro->assuntos()->sync($data['assuntos']);
+            $updateData = array_merge($assunto->toArray(), $data);
+            $assunto->update($updateData);
 
             DB::commit();
-
-            return $livro;
+            return $assunto;
         } catch (QueryException $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            throw new \Exception('Erro de conexão com o banco de dados.');
+            throw new \Exception('Erro ao atualizar o autor no banco de dados.');
         } catch (\PDOException $e) {
             DB::rollBack();
             Log::info($e->getMessage());
@@ -86,8 +70,7 @@ class LivroService
         } catch (\Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            throw new \Exception('Ocorreu um erro ao tentar criar o livro.');
+            throw new \Exception('Ocorreu um erro ao tentar atualizar o autor.');
         }
     }
-
 }

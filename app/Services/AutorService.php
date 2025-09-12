@@ -14,7 +14,7 @@ class AutorService
      *
      * @param array $data
      * @return Autor
-     * @throws \Exception
+     * @throws \Exception|\PDOException|QueryException
      */
     public function create(array $data): Autor
     {
@@ -47,7 +47,7 @@ class AutorService
      * @param Autor $autor
      * @param array $data
      * @return Autor
-     * @throws \Exception
+     * @throws \Exception|\PDOException|QueryException
      */
     public function update(Autor $autor, array $data): Autor
     {
