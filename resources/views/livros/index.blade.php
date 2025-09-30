@@ -9,9 +9,6 @@
             <a href="{{ route('livros.create') }}" class="btn btn-primary btn-sm" title="Novo livro">
                 <i class="fas fa-plus"></i> Adicionar
             </a>
-            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
-                <i class="fas fa-file-alt"></i> Relatório
-            </a>
         </div>
     </div>
 

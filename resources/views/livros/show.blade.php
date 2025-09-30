@@ -5,9 +5,6 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="fas fa-book me-2"></i>Livro</h2>
-        <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm" title="PDF">
-            <i class="fas fa-file-alt"></i> Relatório
-        </a>
     </div>
 
     <div class="table-responsive">

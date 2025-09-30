@@ -5,11 +5,6 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0"><i class="fas fa-user-edit me-2"></i>Editar autor</h2>
-        <div class="d-flex gap-2">
-            <a href="{{ route('relatorios.livros') }}" class="btn btn-secondary btn-sm">
-                <i class="fas fa-file-alt"></i> Relatório
-            </a>
-        </div>
     </div>
     @if ($errors->any())
         <div class="alert alert-danger">
